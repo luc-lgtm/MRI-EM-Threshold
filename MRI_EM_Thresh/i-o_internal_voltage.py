@@ -62,7 +62,7 @@ def get_user_input():
 
 def run_simulation(max_dB_dt, B_max):
     """Run the MRI voltage simulation and return results DataFrame."""
-    NUM_STEPS = 100
+    NUM_STEPS = 1000
     
     print("\n" + "=" * 60)
     print("SIMULATION PARAMETERS")
@@ -71,14 +71,14 @@ def run_simulation(max_dB_dt, B_max):
     print(f"  a (lateral): {head_a*100:.1f} cm")
     print(f"  b (anterior-posterior): {head_b*100:.1f} cm")
     print(f"  c (superior-inferior): {head_c*100:.1f} cm")
-    print(f"  Cross-sectional area (a×c): {math.pi * head_a * head_c * 10000:.2f} cm²")
+    print(f"  Cross-sectional area (a*c): {math.pi * head_a * head_c * 10000:.2f} cm²")
     print(f"\nB field orientation: Parallel to y-axis (patient lying down)")
     print(f"Maximum B field: {B_max} T")
     print(f"Maximum dB/dt: {max_dB_dt} T/s")
     print(f"Number of steps: {NUM_STEPS}")
     print(f"dB/dt increment: {max_dB_dt/NUM_STEPS:.6f} T/s")
     print("=" * 60)
-    
+
     # Calculate increment
     dB_dt_increment = max_dB_dt / NUM_STEPS
     
@@ -110,6 +110,33 @@ def run_simulation(max_dB_dt, B_max):
     
     # Create DataFrame
     df = pd.DataFrame(results)
+    
+    # Biological considerations
+
+    if B_max == 7:
+        print("***Caution! High Field***")
+    #if B_ROC == :
+    
+    if 0.1 <= E_max <= 1:
+        print("Subtle Neuromodulation")
+    elif 1 < E_max <= 10:
+        print("***PERIPHERAL NERVE STIMULATION***")
+        if 1 < E_max <= 5.8:
+            print("!!! Sensory Perception - tingling !!!")
+        if 5.8 < E_max <= 10:
+            print("!!! Sensory Perception - PAINFUL !!!")    
+    
+    #if J_max==      
+
+    # Display summary
+    print("\n" + "=" * 60)
+    print("SUMMARY")
+    print("=" * 60)
+    print(f"Maximum dB/dt: {df['dB/dt (T/s)'].max():.6f} T/s")
+    print(f"Maximum induced voltage: {df['Induced Voltage (V)'].max():.6f} V")
+    print(f"Maximum E-field: {df['Max E-field (V/m)'].max():.6f} V/m")
+    print(f"Maximum current density: {df['Max Current Density (A/m²)'].max():.6f} A/m²")
+    print("=" * 60)
     
     return df
 
@@ -145,9 +172,9 @@ def main():
     df = run_simulation(max_dB_dt, B_max)
     
     # Save results
-    filename = save_to_csv(df, max_dB_dt, B_max)
+    #filename = save_to_csv(df, max_dB_dt, B_max)
     
-    print(f"\nSimulation complete! Check {filename} for detailed results.")
+    #print(f"\nSimulation complete! Check {filename} for detailed results.")
 
 if __name__ == "__main__":
     main()
