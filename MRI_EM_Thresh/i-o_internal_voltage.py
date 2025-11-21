@@ -172,9 +172,9 @@ def main():
     df = run_simulation(max_dB_dt, B_max)
     
     # Save results
-    #filename = save_to_csv(df, max_dB_dt, B_max)
+    filename = save_to_csv(df, max_dB_dt, B_max)
     
-    #print(f"\nSimulation complete! Check {filename} for detailed results.")
+    print(f"\nSimulation complete! Check {filename} for detailed results.")
 
 if __name__ == "__main__":
     main()
