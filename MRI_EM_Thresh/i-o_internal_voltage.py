@@ -127,16 +127,6 @@ def run_simulation(max_dB_dt, B_max):
             print("!!! Sensory Perception - PAINFUL !!!")    
     
     #if J_max==      
-
-    # Display summary
-    print("\n" + "=" * 60)
-    print("SUMMARY")
-    print("=" * 60)
-    print(f"Maximum dB/dt: {df['dB/dt (T/s)'].max():.6f} T/s")
-    print(f"Maximum induced voltage: {df['Induced Voltage (V)'].max():.6f} V")
-    print(f"Maximum E-field: {df['Max E-field (V/m)'].max():.6f} V/m")
-    print(f"Maximum current density: {df['Max Current Density (A/m²)'].max():.6f} A/m²")
-    print("=" * 60)
     
     return df
 
